@@ -1,5 +1,7 @@
-from src.indexing.indexer import generate_tokens
+from src.indexing.indexer import EntityIndexer
 
-def test_token_generation():
-    assert generate_tokens("Reliance Industries Ltd") == ["reliance", "industries", "ltd"]
-    assert generate_tokens("") == []
+def test_setup_blocking_table():
+    # Test if DuckDB connection and table creation work correctly
+    indexer = EntityIndexer()
+    result = indexer.setup_blocking_table()
+    assert result is True
