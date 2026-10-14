@@ -23,6 +23,7 @@ def test_load_data():
     os.remove(test_file)
     
     assert count == 2  # Humne 2 records daale the
+
 def test_clean_name():
     indexer = EntityIndexer()
     # Alag-alag messy data inputs test karein

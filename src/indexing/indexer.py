@@ -1,4 +1,5 @@
 import duckdb
+
 def clean_name(self, raw_name):
         """Normalize string by removing special characters and standardizing spaces."""
         if not raw_name:
