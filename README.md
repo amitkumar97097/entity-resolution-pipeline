@@ -155,7 +155,7 @@ docker run -p 8000:8000 entity-resolution-pipeline
 
 **Amit Kumar**
 
-* GitHub: [@amitkumar97097](https://www.google.com/search?q=https://github.com/amitkumar97097)
+* GitHub:https://github.com/amitkumar97097
 
 ```
 ```
