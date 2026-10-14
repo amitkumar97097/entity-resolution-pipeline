@@ -33,3 +33,18 @@ class EntityIndexer:
             return ""
         cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', str(raw_name)).lower()
         return " ".join(cleaned.split())
+
+    def search_entity(self, query_name):
+        """Search for matching entities using cleaned tokens."""
+        clean_query = self.clean_name(query_name)
+        
+        if not clean_query:
+            return []
+            
+        # DuckDB fast SQL matching
+        sql = f"""
+            SELECT entity_id, raw_name 
+            FROM entities 
+            WHERE clean_tokens LIKE '%{clean_query}%'
+        """
+        return self.conn.execute(sql).fetchall()

@@ -22,11 +22,25 @@ def test_load_data():
     # Clean up the temp file
     os.remove(test_file)
     
-    assert count == 2  # Humne 2 records daale the
+    assert count == 2
 
 def test_clean_name():
     indexer = EntityIndexer()
-    # Alag-alag messy data inputs test karein
     assert indexer.clean_name("Tata Motors Ltd.") == "tata motors ltd"
     assert indexer.clean_name("  Reliance   Jio! (Tele)  ") == "reliance jio tele"
     assert indexer.clean_name("Amazon.com, Inc.") == "amazoncom inc"
+
+def test_search_entity():
+    indexer = EntityIndexer()
+    indexer.setup_blocking_table()
+    
+    # Database mein dummy data insert karein
+    indexer.conn.execute("INSERT INTO entities VALUES ('E1', 'Tata Motors Ltd', 'tata motors ltd')")
+    indexer.conn.execute("INSERT INTO entities VALUES ('E2', 'Reliance Jio', 'reliance jio')")
+    
+    # Messy text search karke match test karein
+    results = indexer.search_entity("  TaTa MoTors!  ")
+    
+    # Check karein ki sirf 1 match mila aur wo E1 (Tata Motors) hi hai
+    assert len(results) == 1
+    assert results[0][0] == 'E1'
