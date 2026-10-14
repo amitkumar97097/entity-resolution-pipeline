@@ -1,0 +1,4 @@
+"data/" 
+"*.tsv" 
+"__pycache__/" 
+".env" 
