@@ -1,4 +1,12 @@
 import duckdb
+def clean_name(self, raw_name):
+        """Normalize string by removing special characters and standardizing spaces."""
+        if not raw_name:
+            return ""
+        # Special characters hatayein aur lowercase karein
+        cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', str(raw_name)).lower()
+        # Extra spaces hata kar clean token string banayein
+        return " ".join(cleaned.split())
 
 class EntityIndexer:
     def __init__(self, db_path=":memory:"):

@@ -23,3 +23,9 @@ def test_load_data():
     os.remove(test_file)
     
     assert count == 2  # Humne 2 records daale the
+def test_clean_name():
+    indexer = EntityIndexer()
+    # Alag-alag messy data inputs test karein
+    assert indexer.clean_name("Tata Motors Ltd.") == "tata motors ltd"
+    assert indexer.clean_name("  Reliance   Jio! (Tele)  ") == "reliance jio tele"
+    assert indexer.clean_name("Amazon.com, Inc.") == "amazoncom inc"
