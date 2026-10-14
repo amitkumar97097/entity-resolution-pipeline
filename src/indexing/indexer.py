@@ -1,13 +1,5 @@
+import re
 import duckdb
-
-def clean_name(self, raw_name):
-        """Normalize string by removing special characters and standardizing spaces."""
-        if not raw_name:
-            return ""
-        # Special characters hatayein aur lowercase karein
-        cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', str(raw_name)).lower()
-        # Extra spaces hata kar clean token string banayein
-        return " ".join(cleaned.split())
 
 class EntityIndexer:
     def __init__(self, db_path=":memory:"):
@@ -27,13 +19,17 @@ class EntityIndexer:
 
     def load_data(self, file_path):
         """Bulk load millions of records directly from CSV/TSV into DuckDB."""
-        # read_csv_auto is highly optimized for multi-gigabyte files
         query = f"""
             INSERT INTO entities
             SELECT * FROM read_csv_auto('{file_path}', header=True)
         """
         self.conn.execute(query)
-        
-        # Verify and return the total row count
         count = self.conn.execute("SELECT COUNT(*) FROM entities").fetchone()[0]
         return count
+
+    def clean_name(self, raw_name):
+        """Normalize string by removing special characters and standardizing spaces."""
+        if not raw_name:
+            return ""
+        cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', str(raw_name)).lower()
+        return " ".join(cleaned.split())
