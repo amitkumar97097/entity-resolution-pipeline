@@ -15,3 +15,16 @@ class EntityIndexer:
             )
         """)
         return True
+
+    def load_data(self, file_path):
+        """Bulk load millions of records directly from CSV/TSV into DuckDB."""
+        # read_csv_auto is highly optimized for multi-gigabyte files
+        query = f"""
+            INSERT INTO entities
+            SELECT * FROM read_csv_auto('{file_path}', header=True)
+        """
+        self.conn.execute(query)
+        
+        # Verify and return the total row count
+        count = self.conn.execute("SELECT COUNT(*) FROM entities").fetchone()[0]
+        return count
