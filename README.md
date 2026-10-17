@@ -64,7 +64,7 @@ An enterprise-grade, high-performance data engineering and microservice pipeline
 
 ## 🌐 Live Cloud Demo
 Test the live API endpoint and interactive documentation directly in your browser:
-👉 **[Open Live Swagger UI (`/docs`)](https://amit-entity-pipeline.onrender.com/docs)**
+👉 **[Open Live Swagger UI (`/docs`)](https://entity-resolution-pipeline-2.onrender.com/docs)**
 
 ---
 
